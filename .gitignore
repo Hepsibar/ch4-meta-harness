@@ -1,0 +1,13 @@
+# 비밀 키 — 절대 커밋하지 않는다
+.env
+
+# 중간 산출물
+_workspace/
+_workspace_*/
+
+# 생성 결과물(필요하면 주석 해제)
+# output/
+
+# 파이썬
+__pycache__/
+*.pyc
