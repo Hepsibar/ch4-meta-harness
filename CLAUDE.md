@@ -6,10 +6,11 @@
 
 **호출 조건:** 웹툰 제작·기획·수정 관련 작업을 요청받으면 `webtoon-orchestrator` 스킬을 사용한다. "웹툰 만들어줘", "N화 그려줘", "대사/캐릭터/컷 수정"처럼 제작·후속 요청이면 모두 이 스킬이 조율한다. 웹툰 창작 기법에 관한 단순 질문에는 직접 답해도 된다.
 
-**사전 조건:** 컷 이미지 생성에는 `OPENAI_API_KEY`가 필요하다. 프로젝트 루트의 `.env`에 넣으면 `gen_image.py`가 자동으로 읽는다(셸 환경 변수가 있으면 그 값이 우선). 없으면 작화 단계에서 프롬프트까지만 만든다. 이미지 모델은 기본 `gpt-image-1`이며 `.env`의 `WEBTOON_IMAGE_MODEL`로 바꾼다. `.env`는 `.gitignore`에 등록돼 커밋되지 않는다.
+**사전 조건:** 컷 이미지 생성에는 `OPENAI_API_KEY`가 필요하다. 프로젝트 루트의 `.env`에 넣으면 `gen_image.py`가 자동으로 읽는다(셸 환경 변수가 있으면 그 값이 우선). 없으면 작화 단계에서 프롬프트까지만 만든다. 이미지 모델은 `.env`의 `WEBTOON_IMAGE_MODEL`로 지정하며, **이 계정은 `gpt-image-1`에 접근 불가라 `gpt-image-2`를 사용한다**(계정이 제공하는 다른 id: gpt-image-1.5, gpt-image-2.5/2.6 등. `GET /v1/models`로 확인). `.env`는 `.gitignore`에 등록돼 커밋되지 않는다.
 
 **변경 이력:**
 | 날짜 | 변경 내용 | 대상 | 사유 |
 | --- | --- | --- | --- |
 | 2026-11-12 | Harness v2로 처음 구성(지속형 에이전트 협업 모드) | 전체 | 웹툰 전체 파이프라인 제작, GPT Image 작화 |
 | 2026-11-12 | webtoon-reviewer `tools`에 `Skill` 추가 | webtoon-reviewer.md | 1화 테스트에서 검수자가 본문 지시대로 webtoon-review 스킬을 불러오려 했으나 Skill 도구 미부여로 실패(수동 우회)한 결함 수정 |
+| 2026-11-12 | 이미지 모델 `gpt-image-2`로 설정 | .env | 계정이 `gpt-image-1` 미보유(400 does not exist). `/v1/models` 조회로 접근 가능 모델 확인 후 gpt-image-2로 1화 2컷 생성 성공 |
